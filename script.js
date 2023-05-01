@@ -1,0 +1,104 @@
+const first = document.querySelector('#first');
+const p1 = document.createElement('p');
+const p2 = document.createElement('p');
+first.append(p1);
+first.append(p2);
+const oneAJSON = `{"id":18,"type":"programming","setup":"Why did the programmer quit his job?","punchline":"Because he didn't get arrays."}`;
+
+
+jokeJS1 = JSON.parse(oneAJSON);
+
+
+p1.innerText = jokeJS1.setup;
+
+
+p2.innerText = jokeJS1.punchline;
+
+
+const second = document.querySelector('#second');
+const p3 = document.createElement('p');
+const p4 = document.createElement('p');
+second.append(p3);
+second.append(p4);
+
+
+axios.get('https://www.boredapi.com/api/activity/')
+
+
+    .then((result) => {
+        activityJS2 = result.data.activity;
+        console.log(activityJS2);
+        p3.innerText=activityjs2.type;
+        p4.innerText=activityJS2.activity;
+        
+     
+        typeJS2 = result.data.type;
+        console.log(typeJS2);
+        p3.innerText = typeJS2;
+        p4.innerText = activityJS2;
+        console.log('Q2: Success');
+    })
+ 
+ 
+       .catch((err) => {
+           console.log(err);
+           console.log('Q2: Error');
+    });
+
+
+
+
+const third = document.querySelector('#third');
+const p5 = document.createElement('p');
+const p6 = document.createElement('p');
+third.append(p5);
+third.append(p6);
+
+
+async function activityFunc(){
+
+
+    try {
+        
+       
+        const activityJS3 = await axios.get('https://www.boredapi.com/api/activity/');
+        // console.log(activityJS3);
+        
+       
+        p5.innerText = activityJS3.data.activity;
+        p6.innerText = activityJS3.data.type;
+        console.log('Q3: Success');
+    }
+    catch(err) {
+        console.log('question 3 failed to get');
+        console.log(err);
+
+activityFunc();
+
+
+// https://api.tvmaze.com/api/shows/:id/episodebynumber?season=:season&number=:number
+
+const fourth = document.querySelector('#fourth');
+const p7 = document.createElement('p');
+fourth.append(p7);
+
+
+async function tvMazeFunc(){
+    try {
+        let theShow = await axios.get('https://api.tvmaze.com/shows/38963');
+        // console.log(theShow);
+        let theEpisode = await axios.get('https://api.tvmaze.com/shows/38963/episodebynumber?season=2&number=8')
+        // console.log(theEpisode);
+        theShow = theShow.data.name;
+        let theSeason = theEpisode.data.season;
+        let theName = theEpisode.data.name;
+        theEpisode = theEpisode.data.number;
+        p7.innerText += `${theShow}\nSeason: ${theSeason}, Episode: ${theEpisode}\n${theName}`;
+        console.log('Q4: Success');
+    } catch (err) {
+        console.log(err);
+        console.log('Q4: Error');
+    }
+}
+
+tvMazeFunc();
